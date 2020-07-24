@@ -38,9 +38,14 @@ class TextInputComponent extends Component {
     this.state = {
     };
   }
-  onChangePhoneNumber = (value) => {
-    let phone = this.props.title + value 
-    this.props.getPhoneNumber(phone)
+  onChangeInput = (value) => {
+    if (this.props.from === 'login') {
+      let phone = this.props.title + value
+      this.props.getPhoneNumber(phone)
+    }
+    if (this.props.from === 'verify') {
+      this.props.getPhoneCode(value)
+    }
   }
   render() {
     return (
@@ -49,7 +54,7 @@ class TextInputComponent extends Component {
           <TextInput 
           placeholder={this.props.placeholder} 
           style={styles.inputStyle} 
-          onChangeText = {(text) => this.onChangePhoneNumber(text)}
+          onChangeText = {(text) => this.onChangeInput(text)}
           />
       </View>
     );

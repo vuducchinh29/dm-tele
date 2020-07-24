@@ -34,10 +34,12 @@ class LoginPage extends Component {
       },
     })
     .then((res) => {
-      console.log(res);
+      this.props.navigation.navigate('VerificationPage', {payload: {
+        phone_number: this.state.phone,
+        phone_code_hash: res.phone_code_hash
+      }})
     })
     .catch(e => console.error('error', e))
-    this.props.navigation.navigate('VerificationPage')
   }
 
   getPhoneNumber = (value) => {
@@ -53,6 +55,7 @@ class LoginPage extends Component {
 
           <AuthHeader icon='user' title="Login" />
           <TextInputComponent 
+            from='login'
             title='+84' 
             placeholder='989383129'
             getPhoneNumber={(value) => this.getPhoneNumber(value)}
