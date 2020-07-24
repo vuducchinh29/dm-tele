@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, TextInput, View, TouchableOpacity,SafeAreaView } from 'react-native';
 import { MTProto, getSRPParams } from '@mtproto/core'
 
 const api_id = '1419179';
@@ -20,24 +20,33 @@ const password = 'PASSWORD';
 
 export default class App extends Component {
   componentDidMount() {
-    mtproto.call('help.getNearestDc').then(result => {
-      console.log(`country:`, result.country);
-    }).catch(e => console.log('bbb', e))
-    this.sendCode(phone)
+    // this.sendCode(phone)
   }
 
   sendCode = (phone) => {
     mtproto.call('auth.sendCode', {
-      length: 8
+      phone_number: phone,
+      settings: {
+        _: 'codeSettings',
+      },
     }).catch(e => console.log('sss', e))
   }
 
 
   render() {
     return (
-      <View>
+      <SafeAreaView>
         <Text> textInComponent </Text>
-      </View>
+        <TextInput
+          placeholder="phone"
+        >
+        </TextInput>
+        <TouchableOpacity/>
+        <TextInput
+          placeholder="code"
+        >
+        </TextInput>
+      </SafeAreaView>
     )
   }
 }

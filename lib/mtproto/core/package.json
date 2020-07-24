@@ -1,0 +1,215 @@
+{
+  "_from": "@mtproto/core",
+  "_id": "@mtproto/core@3.4.0",
+  "_inBundle": false,
+  "_integrity": "sha512-Yi0k8Qm5v3bkOtuF6IFVZ9Wz/lxGmlmpw6apTUzcOhCDz31B/MDPRewxZeN4le6DL07BDrKC7T/G1Lxqy6AGaA==",
+  "_location": "/@mtproto/core",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@mtproto/core",
+    "name": "@mtproto/core",
+    "escapedName": "@mtproto%2fcore",
+    "scope": "@mtproto",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@mtproto/core/-/core-3.4.0.tgz",
+  "_shasum": "0c4b9f44b12c026dd03eedc1defaafbb7e045844",
+  "_spec": "@mtproto/core",
+  "_where": "/Users/thonguyen/Downloads/REACT-NATIVE/dm-tele",
+  "author": {
+    "name": "Ali Gasymov",
+    "email": "alik0211alik@gmail.com",
+    "url": "https://gasymov.com/"
+  },
+  "browser": {
+    "./src/meta/index.js": "./src/meta/index.browser.js",
+    "./src/transport/index.js": "./src/transport/index.browser.js",
+    "./src/storage/local/index.js": "./src/storage/local/index.browser.js",
+    "./src/utils/crypto/sha1/index.js": "./src/utils/crypto/sha1/index.browser.js",
+    "./src/utils/crypto/sha256/index.js": "./src/utils/crypto/sha256/index.browser.js",
+    "./src/utils/crypto/pbkdf2/index.js": "./src/utils/crypto/pbkdf2/index.browser.js",
+    "./src/utils/common/random/index.js": "./src/utils/common/random/index.browser.js"
+  },
+  "bugs": {
+    "url": "https://github.com/alik0211/mtproto-core/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "aes-js": "3.1.2",
+    "big-integer": "1.6.48",
+    "env-paths": "2.2.0",
+    "events": "3.1.0",
+    "leemon": "6.2.0",
+    "lodash.debounce": "4.0.8",
+    "node-localstorage": "2.1.6",
+    "pako": "1.0.11"
+  },
+  "deprecated": false,
+  "description": "Telegram API JS (MTProto) client library for browser and nodejs",
+  "engines": {
+    "node": ">=12"
+  },
+  "exports": {
+    ".": {
+      "require": "./index.cjs",
+      "import": "./index.js",
+      "types": "./index.d.ts"
+    },
+    "./package.json": "./package.json",
+    "./src/package.json": "./src/package.json",
+    "./src": {
+      "require": "./src/index.cjs",
+      "import": "./src/index.js"
+    },
+    "./src/meta/package.json": "./src/meta/package.json",
+    "./src/meta": {
+      "browser": "./src/meta/index.browser.js",
+      "require": "./src/meta/index.cjs",
+      "import": "./src/meta/index.js"
+    },
+    "./src/rpc/package.json": "./src/rpc/package.json",
+    "./src/rpc": {
+      "require": "./src/rpc/index.cjs",
+      "import": "./src/rpc/index.js"
+    },
+    "./src/storage/package.json": "./src/storage/package.json",
+    "./src/storage": {
+      "require": "./src/storage/index.cjs",
+      "import": "./src/storage/index.js"
+    },
+    "./src/transport/package.json": "./src/transport/package.json",
+    "./src/transport": {
+      "browser": "./src/transport/index.browser.js",
+      "require": "./src/transport/index.cjs",
+      "import": "./src/transport/index.js"
+    },
+    "./src/storage/local/package.json": "./src/storage/local/package.json",
+    "./src/storage/local": {
+      "browser": "./src/storage/local/index.browser.js",
+      "require": "./src/storage/local/index.cjs",
+      "import": "./src/storage/local/index.js"
+    },
+    "./src/storage/temp/package.json": "./src/storage/temp/package.json",
+    "./src/storage/temp": {
+      "require": "./src/storage/temp/index.cjs",
+      "import": "./src/storage/temp/index.js"
+    },
+    "./src/tl/deserializer/package.json": "./src/tl/deserializer/package.json",
+    "./src/tl/deserializer": {
+      "require": "./src/tl/deserializer/index.cjs",
+      "import": "./src/tl/deserializer/index.js"
+    },
+    "./src/tl/serializer/package.json": "./src/tl/serializer/package.json",
+    "./src/tl/serializer": {
+      "require": "./src/tl/serializer/index.cjs",
+      "import": "./src/tl/serializer/index.js"
+    },
+    "./src/transport/obfuscated/package.json": "./src/transport/obfuscated/package.json",
+    "./src/transport/obfuscated": {
+      "require": "./src/transport/obfuscated/index.cjs",
+      "import": "./src/transport/obfuscated/index.js"
+    },
+    "./src/transport/socket/package.json": "./src/transport/socket/package.json",
+    "./src/transport/socket": {
+      "require": "./src/transport/socket/index.cjs",
+      "import": "./src/transport/socket/index.js"
+    },
+    "./src/transport/tcp/package.json": "./src/transport/tcp/package.json",
+    "./src/transport/tcp": {
+      "require": "./src/transport/tcp/index.cjs",
+      "import": "./src/transport/tcp/index.js"
+    },
+    "./src/utils/common/package.json": "./src/utils/common/package.json",
+    "./src/utils/common": {
+      "require": "./src/utils/common/index.cjs",
+      "import": "./src/utils/common/index.js"
+    },
+    "./src/utils/crypto/package.json": "./src/utils/crypto/package.json",
+    "./src/utils/crypto": {
+      "require": "./src/utils/crypto/index.cjs",
+      "import": "./src/utils/crypto/index.js"
+    },
+    "./src/utils/pq/package.json": "./src/utils/pq/package.json",
+    "./src/utils/pq": {
+      "require": "./src/utils/pq/index.cjs",
+      "import": "./src/utils/pq/index.js"
+    },
+    "./src/utils/rsa/package.json": "./src/utils/rsa/package.json",
+    "./src/utils/rsa": {
+      "require": "./src/utils/rsa/index.cjs",
+      "import": "./src/utils/rsa/index.js"
+    },
+    "./src/utils/common/random/package.json": "./src/utils/common/random/package.json",
+    "./src/utils/common/random": {
+      "browser": "./src/utils/common/random/index.browser.js",
+      "require": "./src/utils/common/random/index.cjs",
+      "import": "./src/utils/common/random/index.js"
+    },
+    "./src/utils/crypto/pbkdf2/package.json": "./src/utils/crypto/pbkdf2/package.json",
+    "./src/utils/crypto/pbkdf2": {
+      "browser": "./src/utils/crypto/pbkdf2/index.browser.js",
+      "require": "./src/utils/crypto/pbkdf2/index.cjs",
+      "import": "./src/utils/crypto/pbkdf2/index.js"
+    },
+    "./src/utils/crypto/sha256/package.json": "./src/utils/crypto/sha256/package.json",
+    "./src/utils/crypto/sha256": {
+      "browser": "./src/utils/crypto/sha256/index.browser.js",
+      "require": "./src/utils/crypto/sha256/index.cjs",
+      "import": "./src/utils/crypto/sha256/index.js"
+    },
+    "./src/utils/crypto/sha1/package.json": "./src/utils/crypto/sha1/package.json",
+    "./src/utils/crypto/sha1": {
+      "browser": "./src/utils/crypto/sha1/index.browser.js",
+      "require": "./src/utils/crypto/sha1/index.cjs",
+      "import": "./src/utils/crypto/sha1/index.js"
+    },
+    "./scheme/package.json": "./scheme/package.json",
+    "./scheme": {
+      "require": "./scheme/index.cjs",
+      "import": "./scheme/index.js"
+    },
+    "./index.d.ts": "./index.d.ts"
+  },
+  "files": [
+    "index.js",
+    "src/**/*.js",
+    "scheme/index.js"
+  ],
+  "homepage": "https://github.com/alik0211/mtproto-core#readme",
+  "keywords": [
+    "telegram",
+    "telegram-api",
+    "mtproto",
+    "tdlib",
+    "browser",
+    "node",
+    "nodejs",
+    "client",
+    "library",
+    "lib",
+    "api",
+    "messenger",
+    "telegram-web",
+    "telegram-online"
+  ],
+  "license": "GPL-3.0",
+  "main": "index.cjs",
+  "module": "index.js",
+  "name": "@mtproto/core",
+  "react-native": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alik0211/mtproto-core.git"
+  },
+  "type": "module",
+  "types": "./index.d.ts",
+  "version": "3.4.0"
+}
