@@ -5,6 +5,14 @@ import TextInputComponent from '../components/loginPageComponents/TextInputCompo
 import BigButtonComponent from '../components/loginPageComponents/BigButtonComponent';
 import { theme } from '../theme';
 
+import { MTProto } from '@mtproto/core'
+const api_id = '1419179';
+const api_hash = '0fbc49808dfa383bd1a3b381493ef836';
+const mtproto = new MTProto({
+  api_id,
+  api_hash,
+  test: true,
+});
 
 class LoginPage extends Component {
   // THIS OPTION IS TO SHOW/HIDE DEFAULT NAVIGATION HEADER
@@ -17,13 +25,38 @@ class LoginPage extends Component {
     };
   }
 
+  sendCode = () => {
+    const {phone} = this.state
+    mtproto.call('auth.sendCode', {
+      phone_number: phone,
+      settings: {
+        _: 'codeSettings',
+      },
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch(e => console.error('error', e))
+    this.props.navigation.navigate('VerificationPage')
+  }
+
+  getPhoneNumber = (value) => {
+    this.setState({
+      phone: value
+    })
+  }
+
   render() {
     return (
       <View style={{ flex: 1, height: '100%' }} >
         <View style={{ flex: 2 }}>
 
           <AuthHeader icon='user' title="Login" />
-          <TextInputComponent title='+964' placeholder='75xxxxxx' />
+          <TextInputComponent 
+            title='+84' 
+            placeholder='989383129'
+            getPhoneNumber={(value) => this.getPhoneNumber(value)}
+          />
 
           <TouchableOpacity
           onPress={() => this.props.navigation.navigate('SignUpPage')}
@@ -40,7 +73,7 @@ class LoginPage extends Component {
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
           <BigButtonComponent
-            onPress={() => this.props.navigation.navigate('VerificationPage')}
+            onPress={() => this.sendCode()}
             color={theme.colors.primary} title='Log in'
           />
         </View>
