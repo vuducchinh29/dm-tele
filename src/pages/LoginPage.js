@@ -22,10 +22,14 @@ class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: false
     };
   }
 
   sendCode = () => {
+    this.setState({
+      isLoading: true
+    })
     const {phone} = this.state
     mtproto.call('auth.sendCode', {
       phone_number: phone,
@@ -34,6 +38,9 @@ class LoginPage extends Component {
       },
     })
     .then((res) => {
+      this.setState({
+        isLoading: false,
+      });
       this.props.navigation.navigate('VerificationPage', {payload: {
         phone_number: this.state.phone,
         phone_code_hash: res.phone_code_hash
@@ -49,6 +56,7 @@ class LoginPage extends Component {
   }
 
   render() {
+    const { isLoading } = this.state
     return (
       <View style={{ flex: 1, height: '100%' }} >
         <View style={{ flex: 2 }}>
@@ -72,7 +80,16 @@ class LoginPage extends Component {
               }}
             >Don't have an account? Sign up</Text>
           </TouchableOpacity>
-
+          {
+            isLoading && <Text 
+            style={{
+              color: theme.colors.primary,
+              fontWeight: 'bold',
+              fontSize: 20,
+              marginTop: 30,
+              textAlign: 'center'
+            }}>Loading...</Text>
+          }
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
           <BigButtonComponent

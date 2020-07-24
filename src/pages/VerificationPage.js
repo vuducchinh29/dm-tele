@@ -21,21 +21,23 @@ class VerificationPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isLoading: true
         };
     }
 
     signIn = () => {
         const { phone_number, phone_code_hash } = this.props.navigation.getParam('payload');
         const { phone_code } = this.state
-        console.log(phone_code, phone_number, phone_code_hash);
-        
         mtproto.call('auth.signIn', {
             phone_code: phone_code,
             phone_number: phone_number,
             phone_code_hash: phone_code_hash,
         })
         .then((res) =>{
-            console.log(res);
+            console.log('Signed in successfully!');
+            this.setState({
+                isLoading: false,
+            })
             this.props.navigation.navigate('Home')
         })
         .catch((err) =>{
@@ -50,10 +52,15 @@ class VerificationPage extends Component {
     }
 
     render() {
+        const { isLoading } = this.state
         return (
             <View style={{ flex: 1, height: '100%' }} >
                 <View style={{ flex: 2 }}>
-                    <AuthHeader icon='check' title="Verification" />
+                    {
+                        isLoading ?
+                        <AuthHeader icon='check' title="Loading..." /> :
+                        <AuthHeader icon='check' title="Verification" />
+                    }
                     <TextInputComponent 
                         from='verify'
                         title='Code' 
