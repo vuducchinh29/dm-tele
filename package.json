@@ -13,7 +13,7 @@
     "postinstall": "rn-nodeify --install stream,process,util,buffer,assert,events,crypto,vm --hack"
   },
   "dependencies": {
-    "@mtproto/core": "^3.4.0",
+    "@mtproto/core": "git+https://github.com/vuducchinh29/mtproto-core.git",
     "@react-native-community/async-storage": "^1.11.0",
     "@tradle/react-native-http": "^2.0.1",
     "assert": "^1.5.0",
