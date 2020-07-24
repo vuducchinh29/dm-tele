@@ -7,18 +7,26 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build:ios": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
+    "build:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
+    "postinstall": "rn-nodeify --install stream,process,util,buffer,assert,events,crypto,vm --hack"
   },
   "dependencies": {
+    "@mtproto/core": "^3.4.0",
+    "@react-native-community/async-storage": "^1.11.0",
     "@tradle/react-native-http": "^2.0.1",
     "assert": "^1.5.0",
+    "base-64": "^0.1.0",
     "browserify-zlib": "^0.1.4",
     "console-browserify": "^1.2.0",
     "constants-browserify": "^1.0.0",
     "dns.js": "^1.0.1",
     "domain-browser": "^1.2.0",
     "events": "^1.1.1",
+    "handlebars": "^4.7.6",
     "https-browserify": "0.0.1",
+    "node-libs-browser": "^2.2.1",
     "path-browserify": "0.0.0",
     "process": "^0.11.10",
     "punycode": "^1.4.1",
@@ -26,11 +34,12 @@
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-crypto": "^2.2.0",
+    "react-native-fs": "^2.16.6",
     "react-native-level-fs": "^3.0.1",
     "react-native-os": "^1.2.6",
     "react-native-randombytes": "^3.5.3",
-    "react-native-tcp": "^3.3.2",
-    "react-native-udp": "^2.7.0",
+    "react-native-tcp": "^4.0.0",
+    "react-native-udp": "^3.1.0",
     "readable-stream": "^1.0.33",
     "stream-browserify": "^1.0.0",
     "string_decoder": "^0.10.31",
@@ -50,7 +59,7 @@
     "jest": "^26.1.0",
     "metro-react-native-babel-preset": "^0.61.0",
     "react-test-renderer": "16.13.1",
-    "rn-nodeify": "github:tradle/rn-nodeify"
+    "rn-nodeify": "^10.2.0"
   },
   "jest": {
     "preset": "react-native"
