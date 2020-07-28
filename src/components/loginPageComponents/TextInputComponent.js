@@ -38,12 +38,24 @@ class TextInputComponent extends Component {
     this.state = {
     };
   }
-
+  onChangeInput = (value) => {
+    if (this.props.from === 'login') {
+      let phone = this.props.title + value
+      this.props.getPhoneNumber(phone)
+    }
+    if (this.props.from === 'verify') {
+      this.props.getPhoneCode(value)
+    }
+  }
   render() {
     return (
       <View style={styles.mainContainer}>
         <Text style={styles.titleStyle}>{this.props.title}</Text>
-          <TextInput placeholder={this.props.placeholder} style={styles.inputStyle} />
+          <TextInput 
+          placeholder={this.props.placeholder} 
+          style={styles.inputStyle} 
+          onChangeText = {(text) => this.onChangeInput(text)}
+          />
       </View>
     );
   }

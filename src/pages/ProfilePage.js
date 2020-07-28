@@ -4,6 +4,7 @@ import ProfileHeader from '../components/profileComponents/ProfileHeader';
 import ProfileInfo from '../components/profileComponents/ProfileInfo';
 import SettingsCard from '../components/profileComponents/SettingsCard';
 import { theme } from '../theme';
+import Utils from '../assets/utils'
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -24,15 +25,24 @@ class ProfilePage extends Component {
     this.state = {};
   }
 
+  componentDidMount = async () => {
+    const user_info = await Utils.getData('user_info')
+    this.setState({
+      user_info: JSON.parse(user_info)
+    })
+  };
+  
+
   render() {
     const { mainContainer } = styles;
+    const { user_info } = this.state;
     return (
       <View style={mainContainer}>
         <ProfileHeader onPress={() => this.props.navigation.goBack()} title="Profile" />
         <ScrollView>
           <ProfileInfo
             myProfile
-            username="Bayar Botany"
+            username={user_info ? user_info.username : null}
             bio="front-end dev working at Tatty, studying 12th Grade,
           i like to read books and stuff,
           Eminem is my idol i like to read books and stuff,
