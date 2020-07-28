@@ -29,6 +29,9 @@ const styles = StyleSheet.create({
 });
 
 class SearchInput extends Component {
+  onChangeSearchText = (value) => {
+    this.props.getSearchText(value)
+  }
   render() {
     /* Deconstruction */
     const { searchContainer, searchInputStyle, searchRow } = styles;
@@ -39,7 +42,12 @@ class SearchInput extends Component {
         <View style={searchRow}>
           {/* The text Input which we write in it */}
           <Icon size={20} name={'search'} color={theme.colors.searchIcon} />
-          <TextInput maxLength={10} placeholder="Search" style={searchInputStyle} />
+          <TextInput 
+            maxLength={10} 
+            placeholder="Search" 
+            style={searchInputStyle} 
+            onChangeText = {(text) => this.onChangeSearchText(text)}
+          />
         </View>
       </View>
     );

@@ -3,31 +3,13 @@ import { ScrollView } from 'react-native';
 import SearchChatItem from './SearchChatItem';
 import SearchChatAddItem from './SearchChatAddItem';
 
-import { API } from '../../assets/constants'
-import Utils from '../../assets/utils'
 class SearchChatList extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
-  componentDidMount = async () => {
-    const user_info_str = await Utils.getData('user_info')
-    const user_info = JSON.parse(user_info_str)
-    API.call('contacts.getContacts', {
-      hash: user_info.access_hash
-    })
-    .then((response) => {
-      console.log(response);
-      this.setState({
-        listUsers: response.users
-      })
-    })
-    .catch((err) => console.error(err));
-  };
-  
-
   render() {
-    const { listUsers } = this.state;
+    const { listUsers } = this.props;
     return (
       <ScrollView>
         <SearchChatAddItem icon="user" title="New Contact" />
