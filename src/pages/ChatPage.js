@@ -14,6 +14,8 @@ class ChatPage extends Component {
   render() {
     const { navigation } = this.props;
     const username = navigation.getParam('username', 'no name available');
+    const user_id = navigation.getParam('user_id', 'no id available');
+    const status = navigation.getParam('status', 'no id available');
     const bio = navigation.getParam('bio', 'No Bio Available');
     const imageSrc = navigation.getParam('imageSrc', null);
     const isBlocked = navigation.getParam('isBlocked', false);
@@ -27,6 +29,8 @@ class ChatPage extends Component {
           onOpenProfile={() =>
             this.props.navigation.navigate('FriendsProfilePage', {
               username,
+              user_id,
+              status,
               bio,
               imageSrc,
               isBlocked,
@@ -36,7 +40,7 @@ class ChatPage extends Component {
           onPress={() => this.props.navigation.goBack()}
           username={username}
           imageSrc={imageSrc}
-          onlineStatus={'Online'}
+          onlineStatus={status}
         />
         {/* Messages_AREA component where u get all the messages */}
         <MessagesView />

@@ -49,6 +49,8 @@ class SearchChatItem extends Component {
           onPress={() =>
             this.props.navigation.navigate('MessagePage', {
               username: this.props.username,
+              user_id: this.props.user_id,
+              status: this.props.status,
               bio: this.props.bio,
               imageSrc: this.props.imageSrc,
               isBlocked: this.props.isBlocked,
