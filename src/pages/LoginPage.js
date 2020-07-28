@@ -5,17 +5,9 @@ import TextInputComponent from '../components/loginPageComponents/TextInputCompo
 import BigButtonComponent from '../components/loginPageComponents/BigButtonComponent';
 import { theme } from '../theme';
 
-import { MTProto } from '@mtproto/core'
-const api_id = '1419179';
-const api_hash = '0fbc49808dfa383bd1a3b381493ef836';
-const mtproto = new MTProto({
-  api_id,
-  api_hash,
-  test: true,
-});
+import { API } from '../assets/constants'
 
 class LoginPage extends Component {
-  // THIS OPTION IS TO SHOW/HIDE DEFAULT NAVIGATION HEADER
   static navigationOptions = {
     header: null
   };
@@ -31,7 +23,7 @@ class LoginPage extends Component {
       isLoading: true
     })
     const {phone} = this.state
-    mtproto.call('auth.sendCode', {
+    API.call('auth.sendCode', {
       phone_number: phone,
       settings: {
         _: 'codeSettings',
@@ -88,7 +80,7 @@ class LoginPage extends Component {
               fontSize: 20,
               marginTop: 30,
               textAlign: 'center'
-            }}>Loading...</Text>
+            }}>Sending the code...</Text>
           }
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
