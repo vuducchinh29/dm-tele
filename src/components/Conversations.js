@@ -1,76 +1,36 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import ConversationItem from './ConversationItem';
+import Utils from '../assets/utils'
+import { API } from '../assets/constants'
 
-const mockUpData = [
-  {
-    imageSrc: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-    username: "Bruce Mars",
-    bio: "my name is someone, i work",
-    description: "Hello, how are you??",
-    time: "5:00 PM",
-    notification: "3",
-    isBlocked: true,
-    isMuted: true,
-    hasStory: true,
-  },
-  {
-    imageSrc:"https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-    username:"jack jones",
-    bio:"my name is someone, i work",
-    description:"Hello, how are you??",
-    time:"5:00 PM",
-    isBlocked: true,
-    isMuted: true,
-  },
-  {
-    imageSrc:"https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-    username:"eliza",
-    bio:"my name is someone, i work",
-    description:"Hello, how are you??",
-    time:"5:00 PM",
-    notification:"1",
-    isBlocked: true,
-    isMuted: true,
-    hasStory: true,
-  },
-  {
-    imageSrc:"https://images.pexels.com/photos/1845534/pexels-photo-1845534.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-    username:"Victoria Martinez",
-    bio:"my name is someone, i work",
-    description:"Hello, how are you??",
-    time:"5:00 PM",
-    notification:"4",
-    isBlocked: true,
-    isMuted: true,
-    hasStory: true,
-  },
-  {
-    imageSrc: "https://images.pexels.com/photos/1855582/pexels-photo-1855582.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-    username:"Diana Bruce",
-    bio:"my name is someone, i work",
-    description:"Hello, how are you??",
-    time:"5:00 PM",
-    notification:"9",
-    isBlocked: true,
-    isMuted: true,
-    hasStory: true,
-  },
-  {
-    imageSrc: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-    username:"Zack Allen",
-    bio:"my name is someone, i work",
-    description:"Hello, how are you??",
-    time:"5:00 PM",
-    notification:"2",
-    isBlocked: true,
-    isMuted: true,
-    hasStory: true,
-  },
-]
 class Conversations extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      chats: null,
+    }
+  }
+  componentDidMount = async () => {
+    const user_info_str = await Utils.getData('user_info')
+    const user_info = JSON.parse(user_info_str)
+    const user_id = user_info.id
+    if (user_id) {
+      API.call('messages.getAllChats', {
+        except_ids: []
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          chats: response.chats
+        })
+      })
+      .catch((err) => console.error(err));
+    }
+  };
   render() {
-    const {searchText} = this.props
+    const { searchText } = this.props
+    const { chats } = this.state
     return (
       <ScrollView>
         {/*  we can insert More components in to this scrollView
@@ -89,22 +49,39 @@ class Conversations extends Component {
         isBlocked: wether the target is blocked or not
         isMuted: wether the target is muted or not
         */}
-        {mockUpData
-        .filter((data) => {return data.username.toLowerCase().includes(searchText.toLowerCase())})
-        .map((data, key) => (
-          <ConversationItem
-          key={key}
-          imageSrc= {data.imageSrc}
-          username= {data.username}
-          bio={data.bio}
-          description={data.description}
-          time={data.time}
-          notification={data.notification}
-          isBlocked = {data.isBlocked}
-          isMuted = {data.isMuted}
-          hasStory = {data.hasStory}
-        />
-        ))}
+        {chats ? 
+          chats.length > 0 ? 
+          chats
+            .filter((data) => {return data.title.toLowerCase().includes(searchText.toLowerCase())})
+            .map((data, key) => (
+              <ConversationItem
+                key={key}
+                imageSrc= {data.imageSrc}
+                username= {data.title}
+                bio={data.bio}
+                description={data.description}
+                time={data.time}
+                notification={data.notification}
+                isBlocked = {data.isBlocked}
+                isMuted = {data.isMuted}
+                hasStory = {data.hasStory}
+              />
+            ))
+          : <Text
+              style={{
+                alignSelf: 'center',
+                color: 'darkgray',
+                fontSize: 14
+              }}
+            >No conversation</Text>
+        : <Text
+            style={{
+              alignSelf: 'center',
+              color: 'darkgray',
+              fontSize: 14
+            }}
+          >Loading conversation...</Text>
+        }
       </ScrollView>
     );
   }
