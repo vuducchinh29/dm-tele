@@ -34,7 +34,15 @@ class ConversationsTab extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      searchText: ''
+    };
+  }
+
+  searchConversation = (value) => {
+    this.setState({
+      searchText: value
+    })
   }
 
   render() {
@@ -43,9 +51,11 @@ class ConversationsTab extends Component {
         {/* The Color of Status Bar (battery level, notifcitaion bar, and wifi stats) */}
         <StatusBar backgroundColor={theme.colors.tabPageBackground} barStyle="dark-content" />
         {/* CONVERSATIONS Component */}
-        <Conversations>
+        <Conversations searchText={this.state.searchText}>
           {/* SEARCH_INPUT Component */}
-          <SearchInput />
+          <SearchInput 
+            searchConversation = {this.searchConversation}
+          />
         </Conversations>
         {/* FLOATING ACTION BUTTON */}
         <TouchableOpacity

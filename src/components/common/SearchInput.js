@@ -34,6 +34,7 @@ class SearchInput extends Component {
   }
   render() {
     /* Deconstruction */
+    const { searchConversation } = this.props;
     const { searchContainer, searchInputStyle, searchRow } = styles;
     return (
       /* The main Container component */
