@@ -77,7 +77,14 @@ class ChatPage extends Component {
           user_id={user_id}
           access_hash={access_hash}
         />}
-        <ChatInput />
+        {chat_info && 
+        <ChatInput
+          chat_info={chat_info}
+          username={username}
+          user_id={user_id}
+          access_hash={access_hash}
+        />}
+
       </View>
     );
   }
