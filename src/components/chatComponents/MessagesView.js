@@ -4,6 +4,7 @@ import ChatCard from '../chatComponents/ChatCard';
 import { theme } from '../../theme';
 import { API } from '../../assets/constants'
 import Utils from '../../assets/utils'
+import moment from 'moment';
 
 class MessagesView extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class MessagesView extends Component {
 
   renderMessages() {
     return this.state.messages.reverse().map((message, index) => (
-      <ChatCard key={index} time={message.date} isLeft={message.from_id !== this.myId} chat={message.message} />
+      <ChatCard key={index} time={moment.unix(message.date).format('HH:mm')} isLeft={message.from_id !== this.myId} chat={message.message} />
   ))
   }
   
