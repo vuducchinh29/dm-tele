@@ -17,6 +17,10 @@ class MessagesView extends Component {
   componentDidMount = async () => {
     const user_info = await Utils.getData('user_info')
     this.myId = JSON.parse(user_info).id
+    this.loadMessagesHistory(20)
+  };
+
+  loadMessagesHistory = (limit) => {
     const { chat_info, user_id, access_hash } = this.props;
     const msg_id = chat_info.updates[0].id
     API.call('messages.getHistory', {
@@ -27,7 +31,7 @@ class MessagesView extends Component {
       },
       offset_id: msg_id, 
       add_offset: 0, 
-      limit: 20
+      limit: limit
     })
     .then ((res) => {
       console.log(res);
@@ -36,8 +40,7 @@ class MessagesView extends Component {
       })
     })
     .catch((err) => console.error(err))
-  };
-
+  }
   renderMessages() {
     return this.state.messages.reverse().map((message, index) => (
       <ChatCard key={index} time={moment.unix(message.date).format('HH:mm')} isLeft={message.from_id !== this.myId} chat={message.message} />
