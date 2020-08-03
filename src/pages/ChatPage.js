@@ -5,11 +5,33 @@ import ChatInput from '../components/chatComponents/ChatInput';
 import MessagesView from '../components/chatComponents/MessagesView';
 import { theme } from '../theme';
 
+import { API } from '../assets/constants'
+import Utils from '../assets/utils'
+
 class ChatPage extends Component {
-  // THIS OPTION IS TO SHOW/HIDE DEFAULT NAVIGATION HEADER
   static navigationOptions = {
     header: null
   };
+
+  componentDidMount = () => {
+    const { navigation } = this.props;
+    const username = navigation.getParam('username', 'no name available');
+    const user_id = navigation.getParam('user_id', 'no id available');
+    const access_hash = navigation.getParam('access_hash', 'no id available');
+    API.call('messages.createChat', {
+      users: [{
+        _: 'inputUser',
+        user_id: user_id,
+        access_hash: access_hash
+      }],
+      title: username
+    })
+    .then ((res) => {
+      console.log(res);
+    })
+    .catch((err) => console.error(err))
+  };
+  
 
   render() {
     const { navigation } = this.props;
