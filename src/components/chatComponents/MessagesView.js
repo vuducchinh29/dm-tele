@@ -2,76 +2,47 @@ import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import ChatCard from '../chatComponents/ChatCard';
 import { theme } from '../../theme';
+import { API } from '../../assets/constants'
+import Utils from '../../assets/utils'
 
 class MessagesView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chats: [
-        {
-          user: 0,
-          time: '12:00',
-          content: 'Hey'
-        },
-        {
-          user: 1,
-          time: '12:05',
-          content: "What's up?"
-        },
-        {
-          user: 1,
-          time: '12:07',
-          content: 'How is it going?'
-        },
-        {
-          user: 0,
-          time: '12:09',
-          content: 'things are going great'
-        },
-        {
-          user: 0,
-          time: '12:00',
-          content: 'Good :)'
-        },
-        {
-          user: 1,
-          time: '12:05',
-          content: 'Should we hang out tommorow? i was thinking of going somewhere which has drinks'
-        },
-        {
-          user: 0,
-          time: '12:07',
-          content: 'sure!'
-        },
-        {
-          user: 1,
-          time: '12:09',
-          content: 'Great'
-        },
-        {
-          user: 0,
-          time: '12:07',
-          content: "7 o'clock?"
-        },
-        {
-          user: 1,
-          time: '12:09',
-          content: 'sounds Good'
-        }
-      ]
+      messages: []
     };
   }
-  /* To define Which User is Me
-  0 = ME
-  1 = other Person */
-  myUser = 0;
 
-  /* A function that turns The messages Array into Objects and then returns each object */
-  showChats() {
-    return this.state.chats.map(chat => (
-      <ChatCard time={chat.time} isLeft={chat.user !== this.myUser} chat={chat.content} />
-    ));
+  componentDidMount = async () => {
+    const user_info = await Utils.getData('user_info')
+    this.myId = JSON.parse(user_info).id
+    const { chat_info, user_id, access_hash } = this.props;
+    const msg_id = chat_info.updates[0].id
+    API.call('messages.getHistory', {
+      peer: {
+        _: 'inputPeerUser',
+        user_id: user_id,
+        access_hash: access_hash
+      },
+      offset_id: msg_id, 
+      add_offset: 0, 
+      limit: 20
+    })
+    .then ((res) => {
+      console.log(res);
+      this.setState({
+        messages: res.messages
+      })
+    })
+    .catch((err) => console.error(err))
+  };
+
+  renderMessages() {
+    return this.state.messages.reverse().map((message, index) => (
+      <ChatCard key={index} time={message.date} isLeft={message.from_id !== this.myId} chat={message.message} />
+  ))
   }
+  
 
   render() {
     return (
@@ -83,7 +54,7 @@ class MessagesView extends Component {
           this.scrollView.scrollToEnd({ animated: true });
         }}
       >
-        {this.showChats()}
+        {this.renderMessages()}
       </ScrollView>
     );
   }
