@@ -35,7 +35,7 @@ class SearchChatPage extends Component {
     .catch((err) => console.error(err));
   };
 
-  getSearchText = (data) => {
+  searchContact = (data) => {
     this.setState({
       searchText: data
     })
@@ -50,7 +50,8 @@ class SearchChatPage extends Component {
       <View style={{ backgroundColor: theme.colors.tabPageBackground, flex: 1 }}>
         <ProfileHeader title="Select contact" onPress={() => this.props.navigation.goBack()} />
         <SearchInput 
-          getSearchText = {(data) => this.getSearchText(data)}
+          from='contact'
+          searchContact = {(data) => this.searchContact(data)}
         />
         <SearchChatList 
           listUsers = {showListUsers}

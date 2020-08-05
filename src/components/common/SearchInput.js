@@ -30,11 +30,16 @@ const styles = StyleSheet.create({
 
 class SearchInput extends Component {
   onChangeSearchText = (value) => {
-    this.props.getSearchText(value)
+    const {from} = this.props
+    if (from === 'conversationTab') {
+      this.props.searchConversation(value)
+    }
+    if (from === 'contact') {
+      this.props.searchContact(value)
+    }
   }
   render() {
     /* Deconstruction */
-    const { searchConversation } = this.props;
     const { searchContainer, searchInputStyle, searchRow } = styles;
     return (
       /* The main Container component */
@@ -46,7 +51,7 @@ class SearchInput extends Component {
           <TextInput 
             maxLength={10} 
             placeholder="Search" 
-            style={searchInputStyle} 
+            style={searchInputStyle}
             onChangeText = {(text) => this.onChangeSearchText(text)}
           />
         </View>

@@ -53,7 +53,8 @@ class ConversationsTab extends Component {
         {/* CONVERSATIONS Component */}
         <Conversations searchText={this.state.searchText}>
           {/* SEARCH_INPUT Component */}
-          <SearchInput 
+          <SearchInput
+            from='conversationTab'
             searchConversation = {this.searchConversation}
           />
         </Conversations>
