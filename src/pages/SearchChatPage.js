@@ -5,6 +5,8 @@ import SearchInput from '../components/common/SearchInput';
 import SearchChatList from '../components/searchChatComponents/SearchChatList';
 import { theme } from '../theme';
 
+import { API } from '../assets/constants'
+import Utils from '../assets/utils'
 class SearchChatPage extends Component {
   // THIS OPTION IS TO SHOW/HIDE DEFAULT NAVIGATION HEADER
   static navigationOptions = {
@@ -13,15 +15,46 @@ class SearchChatPage extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      listUsers: [],
+      searchText: ''
+    };
+  }
+
+  componentDidMount = async () => {
+    const user_info_str = await Utils.getData('user_info')
+    const user_info = JSON.parse(user_info_str)
+    API.call('contacts.getContacts', {
+      hash: user_info.access_hash
+    })
+    .then((response) => {
+      this.setState({
+        listUsers: response.users
+      })
+    })
+    .catch((err) => console.error(err));
+  };
+
+  getSearchText = (data) => {
+    this.setState({
+      searchText: data
+    })
   }
 
   render() {
+    const {listUsers, searchText } = this.state;
+    const showListUsers = listUsers.filter((user) => { 
+        const name = user.first_name || user.last_name
+        return name.toLowerCase().includes(searchText.toLowerCase())})
     return (
       <View style={{ backgroundColor: theme.colors.tabPageBackground, flex: 1 }}>
         <ProfileHeader title="Select contact" onPress={() => this.props.navigation.goBack()} />
-        <SearchInput />
-        <SearchChatList />
+        <SearchInput 
+          getSearchText = {(data) => this.getSearchText(data)}
+        />
+        <SearchChatList 
+          listUsers = {showListUsers}
+        />
       </View>
     );
   }
